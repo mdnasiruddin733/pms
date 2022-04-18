@@ -11,17 +11,16 @@ class UserController extends Controller
         return view('backend.pages.login');
     }
     public function dologin(request $request){
-        //  dd($request->all());
         $request->validate([
             'email'=>'required|email',
             'password'=>'required',
         ]);
         // dd($request->all());
-        $credentials=$request->except('_token');
+        $credentials=$request->except(['_token',"remember"]);
 
-        if (auth()->attempt($credentials))
+        if (auth()->attempt($credentials,$request->remember))
         {
-            return redirect()->route('welcome');
+            return redirect('admin/dashboard');
         }
         return redirect()->back()->with('message','invalid credentials');
     }
@@ -31,4 +30,3 @@ class UserController extends Controller
         return redirect()->route('admin.login')->with('message','Logout Successful');
     }
 }
-

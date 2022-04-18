@@ -1,4 +1,4 @@
-@extends('welcome')
+@extends('backend.layout')
 @section('content')
 <form action="{{route('generic.update')}}" method="POST">
     @csrf

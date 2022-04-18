@@ -10,6 +10,8 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\CustomerController;
 use App\Http\Controllers\Frontend\FrontendOrderController;
 use App\Http\Controllers\Backend\GenericController;
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,7 +24,7 @@ use App\Http\Controllers\Backend\GenericController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect(route("login.form"));
 })->name('welcome');
 
 //Frontend
@@ -30,13 +32,15 @@ Route::get('/home',[HomeController::class,'home'])->name('home');
 Route::get('/customer/registration/form',[HomeController::class,'registrationForm'])->name('registration.form');
 Route::post('/customer/registration',[HomeController::class,'registrationFormpost'])->name('customer.registration');
 Route::get('/customer/login/form',[HomeController::class,'loginForm'])->name('login.form');
-Route::post('/customer/login',[FrontendOrderController::class,'loginFormpost'])->name('customer.login');
+Route::post('/customer/login',[HomeController::class,'loginFormpost'])->name('customer.login');
 Route::get('/product/view/{id}',[FrontendOrderController::class,'showproduct'])->name('product.view');
 Route::get('/cart/view',[FrontendOrderController::class,'viewCart'])->name('cart.view');
 Route::get('/cart/add{id}',[FrontendOrderController::class,'addToCart'])->name('cart.add');
 Route::get('/cart/clear',[FrontendOrderController::class,'clearCart'])->name('cart.clear');
+Route::post("/cart/upadte",[FrontendOrderController::class,"updateCart"])->name("cart.update");
+Route::get("/cart/delete/{cart_id}",[FrontendOrderController::class,"deleteCart"])->name("cart.delete");
 
-
+Route::post("/search",[ProductController::class,"search"])->name("search");
 //Backend
 
 
@@ -51,13 +55,7 @@ Route::get('/dashboard', function () {
     return view('backend.pages.dashboard');
 });
 
-// Route::get('/product', function () {
-//     return view('backend.pages.product');
-// });
-// Route::get('/Product',function(){
-//     return view('backend.pages.product.productList');
-// });
-//url,controller name,controller method,product name
+
 Route::get('/product',[ProductController::class,'product'])->name('admin.product.show');
 Route::get('/product/create',[ProductController::class,'productCreate'])->name('product.create');
 Route::post('/product/store',[ProductController::class,'productStore'])->name('product.store');
@@ -99,8 +97,5 @@ Route::post('/stock/post',[StockController::class,'stockPost'])->name('stock.pos
 Route::get('/order',[OrderController::class,'order'])->name('admin.order.show');
 Route::get('/order/form',[OrderController::class,'stockForm'])->name('order.form');
 Route::post('/order/post',[OrderController::class,'stockPost'])->name('order.post');
-
-
-
 
 });

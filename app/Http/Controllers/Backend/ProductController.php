@@ -40,9 +40,9 @@ class ProductController extends Controller
 
         $filename = null;
         if ($request->image){
-            $file=$request->file('image');
-            $filename = date('ymdhis').'.'.$file->getClientOriginalExtension();
-            $file ->storeAs('/uploads',$filename);
+             $file=$request->file('image');
+             $filename = date('ymdhis').'.'.$file->getClientOriginalExtension();
+             $file ->move(public_path('/uploads'),$filename);
                 Product::create([
                 // coloum name of db || name of input field
                 'name'=> $request->name,
@@ -125,6 +125,18 @@ class ProductController extends Controller
     public function show($id){
         $product=Product::findOrFail($id);
         return view("backend.pages.singleProduct",compact('product'));
+    }
+    public function search(Request $req){
+        $this->validate($req,[
+            "search"=>"required",
+            "category_id"=>"required"
+        ]);
+        $items=Product::where("category_id",$req->category_id)
+                        ->orWhere("name","like","%".$req->search."%")
+                        ->orWhere("details","like","%".$req->search."%")
+                        ->get();
+      return view('Frontend.pages.home',compact('items'));
+                         
     }
 }
 

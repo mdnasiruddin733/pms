@@ -1,4 +1,4 @@
-@extends('welcome')
+@extends('backend.layout')
 
 @section('content')
 <div class="row">

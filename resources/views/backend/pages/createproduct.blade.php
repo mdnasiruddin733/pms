@@ -1,4 +1,4 @@
-@extends('welcome')
+@extends('backend.layout')
 
 @section('content')
 <form action="{{route('product.store')}}" method="POST" enctype="multipart/form-data">

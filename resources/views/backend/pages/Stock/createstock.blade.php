@@ -1,4 +1,4 @@
-@extends('welcome')
+@extends('backend.layout')
 @section('content')
 <form action="{{route('stock.post')}}" method="POST">
     @csrf

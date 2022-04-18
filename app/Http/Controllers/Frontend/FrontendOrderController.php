@@ -9,6 +9,10 @@ use App\Http\Controllers\Controller;
 
 class FrontendOrderController extends Controller
 {
+    function __construct(){
+        $this->middleware("auth");
+    }
+
     public function showproduct($product_id){
         $product=Product::find($product_id);
         // dd($product->all());
@@ -32,6 +36,7 @@ class FrontendOrderController extends Controller
                            'name'=>$product->name,
                            'price'=>$product->price,
                            'quantity'=>1,
+                            "max_quantity"=>$product->quantity,
                            'image'=>$product->image,
                            'subtotal'=>$product->price,
                            'discount'=>5,
@@ -54,6 +59,7 @@ class FrontendOrderController extends Controller
                             'name'=>$product->name,
                             'price'=>$product->price,
                             'quantity'=>1,
+                            "max_quantity"=>$product->quantity,
                             'image'=>$product->image,
                             'subtotal'=>$product->price,
                             'discount'=>5,
@@ -63,18 +69,43 @@ class FrontendOrderController extends Controller
                 }
 
 
-            }  
+        }  
         
 
-public function clearCart()
+    public function clearCart()
     {
         session()->forget('cart');
         return redirect()->back()->with('message','Cart Clear');
     }
 
 
+    public function deleteCart($cart_id){
+         $getCart=session()->get('cart');
+         if(array_key_exists($cart_id,$getCart))
+            {
+
+                    unset($getCart[$cart_id]);
+                    session()->put('cart',$getCart);
+                    return redirect()->back()->with('message','Cart removed.');
+                   
+            }
+        return redirect()->back()->with('message','Cart not found.');
+    }
+
+    public function updateCart(Request $req){
+        $getCart=session()->get('cart');
+        if(array_key_exists($req->id,$getCart))
+            {
+
+                    $getCart[$req->id]['quantity']=$req->quantity;
+                    session()->put('cart',$getCart);
+                    return redirect()->back()->with('message','Cart updated.');
+                   
+            }
+        return redirect()->back()->with('message','Cart not found.');
+
+    }
+
 }
 
     
-
-

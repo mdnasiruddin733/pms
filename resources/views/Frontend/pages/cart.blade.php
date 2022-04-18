@@ -64,14 +64,21 @@
                 </tr>
                 </thead>
                 <tbody>
+                    @php $total=0; @endphp
               @if(session()->has('cart'))
-                @foreach(session()->get('cart') as $cartData)
-
+               
+                @foreach(session()->get('cart') as $cart_id=>$cartData)
+                    @php 
+                        $total=$total+$cartData['price']*$cartData['quantity'];
+                    @endphp
                 <tr>
+                    <form action="{{route('cart.update')}}" method="post">
+                        @csrf 
+                        <input type="hidden" name="id" value="{{$cart_id}}">
                     <td data-th="Product">
                         <div class="row">
                            <div class="col-sm-12 hidden-xs">
-                              <img src="http://placehold.it/100x100" alt="..." class="img-responsive" /></div>
+                              <img src="{{asset($cartData['image'])}}" alt="product-image" class="img-responsive" style="height:50px;"/></div>
                             <div class="col-sm-10">
                                 <h4 class="nomargin">{{$cartData['name']}}</h4>
                             </div>
@@ -79,14 +86,16 @@
                     </td>
                     <td data-th="Price">{{$cartData['price']}}</td>
                     <td data-th="Quantity">
-                        <input type="number" class="form-control text-center" value="{{$cartData['quantity']}}">
+                        <input type="number" id="cart-quantity" class="form-control text-center" value="{{$cartData['quantity']}}" name="quantity" min="1" max="{{$cartData["max_quantity"]}}">
                     </td>
                     <td data-th="Subtotal" class="text-center">{{$cartData['subtotal']}}</td>
                     <td class="actions" data-th="">
                         <button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
-                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
+                        <a class="btn btn-danger btn-sm" href="{{route('cart.delete',$cart_id)}}"><i class="fa fa-trash-o"></i></a>
                     </td>
+                    </form>
                 </tr>
+
                 @endforeach
                  @else
                  <tr>
@@ -94,15 +103,16 @@
                          <h1>Your Cart is Empty</h1>
                      </td>
                  </tr>
+                 
                  @endif
 
                 </tbody>
                 <tfoot>
                 <tr>
-                <td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+                <td><a href="{{route('home')}}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
                 
                     <td colspan="2" class="hidden-lg"></td>
-                    <td class="hidden-xs text-center"><strong>Total $1.99</strong></td>
+                    <td class="hidden-xs text-center"><strong>Total {{$total}} TK.</strong></td>
                     <td><a href="{{route('cart.clear')}}" class="btn btn-danger"> Clear Cart</a></td>
                     <!-- <td colspan="" class="hidden-lg"></td> -->
                     <td><a href="#" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
@@ -114,4 +124,11 @@
         <!-- <div class="col-md-2"></div> -->
     </div>
 
+@endsection
+
+@section("scripts")
+<script>
+
+
+</script>
 @endsection
