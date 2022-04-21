@@ -10,8 +10,14 @@ use App\Models\User;
 class HomeController extends Controller
 {
     public function home(){
-        $items = Product::all();
-        return view('Frontend.pages.home',compact('items'));
+
+        if(auth()->check() && auth()->user()->role=="customer"){
+            $items = Product::all();
+            return view('Frontend.pages.home',compact('items'));
+        }else{
+            return redirect("/admin/dashboard");
+        }
+        
     }
 
   
@@ -56,6 +62,11 @@ class HomeController extends Controller
                 return redirect()->route('home');
             }
             return redirect()->back()->with('message','invalid credentials');
+        }
+
+        public function logout(Request $req){
+            auth()->logout();
+            return redirect(route("login.form"));
         }
 
 }

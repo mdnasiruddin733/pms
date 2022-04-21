@@ -11,6 +11,7 @@ use App\Http\Controllers\Backend\CustomerController;
 use App\Http\Controllers\Frontend\FrontendOrderController;
 use App\Http\Controllers\Backend\GenericController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\SslCommerzPaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +43,7 @@ Route::get("/cart/delete/{cart_id}",[FrontendOrderController::class,"deleteCart"
 
 Route::post("/search",[ProductController::class,"search"])->name("search");
 //Backend
-
+Route::post('/logout',[HomeController::class,'logout'])->name('logout');
 
 Route::get('/login',[UserController::class,'Login'])->name('admin.login');
 Route::post('/admin/do-login',[UserController::class,'dologin'])->name('admin.do.login');
@@ -53,7 +54,7 @@ Route::get('/logout',[UserController::class,'logout'])->name('admin.logout');
 
 Route::get('/dashboard', function () {
     return view('backend.pages.dashboard');
-});
+})->name("admin.dashboard");
 
 
 Route::get('/product',[ProductController::class,'product'])->name('admin.product.show');
@@ -97,5 +98,22 @@ Route::post('/stock/post',[StockController::class,'stockPost'])->name('stock.pos
 Route::get('/order',[OrderController::class,'order'])->name('admin.order.show');
 Route::get('/order/form',[OrderController::class,'stockForm'])->name('order.form');
 Route::post('/order/post',[OrderController::class,'stockPost'])->name('order.post');
+Route::get("/order/details/{id}",[OrderController::class,"orderDetails"])->name("order.details");
+Route::get("/order/edit/{id}",[OrderController::class,"editOrder"])->name("order.edit");
+Route::get("/order/delete/{id}",[OrderController::class,"deleteOrder"])->name("order.delete");
+});
 
+// For checkout
+Route::group(['middleware'=>'auth'],function (){
+
+    Route::get('/checkout',[FrontendOrderController::class,'checkout'])->name('checkout'); 
+    //form dekhbo
+    Route::post('/pay', [SslCommerzPaymentController::class, 'index'])->name('pay'); 
+    // submit korbo
+    Route::post('/success', [SslCommerzPaymentController::class, 'success']);
+    Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
+    Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
+    Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
+    
+    
 });

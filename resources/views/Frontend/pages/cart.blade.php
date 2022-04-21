@@ -64,13 +64,12 @@
                 </tr>
                 </thead>
                 <tbody>
+                   
                     @php $total=0; @endphp
               @if(session()->has('cart'))
                
                 @foreach(session()->get('cart') as $cart_id=>$cartData)
-                    @php 
-                        $total=$total+$cartData['price']*$cartData['quantity'];
-                    @endphp
+                    
                 <tr>
                     <form action="{{route('cart.update')}}" method="post">
                         @csrf 
@@ -112,10 +111,10 @@
                 <td><a href="{{route('home')}}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
                 
                     <td colspan="2" class="hidden-lg"></td>
-                    <td class="hidden-xs text-center"><strong>Total {{$total}} TK.</strong></td>
+                    <td class="hidden-xs text-center"><strong>Total {{total()}} TK.</strong></td>
                     <td><a href="{{route('cart.clear')}}" class="btn btn-danger"> Clear Cart</a></td>
                     <!-- <td colspan="" class="hidden-lg"></td> -->
-                    <td><a href="#" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
+                    <td><a href="{{route('checkout')}}" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
 
                 </tr>
                 </tfoot>

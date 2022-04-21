@@ -14,12 +14,14 @@ class FrontendOrderController extends Controller
     }
 
     public function showproduct($product_id){
-        $product=Product::find($product_id);
-        // dd($product->all());
+        $product=Product::findOrFail($product_id);
         return view('Frontend.pages.singleproduct',compact('product'));
     }
    public function viewcart()
    {
+       if(is_null(session()->get('cart'))){
+           return back();
+       }
        return view('Frontend.pages.cart');
    }
    public function addToCart($product_id)
@@ -74,8 +76,13 @@ class FrontendOrderController extends Controller
 
     public function clearCart()
     {
-        session()->forget('cart');
-        return redirect()->back()->with('message','Cart Clear');
+        if(!is_null(session()->get('cart'))){
+           session()->forget('cart');
+           return redirect()->back()->with('message','Cart Clear');
+        }
+        return redirect()->back()->with('message','Cart Not found');
+        
+        
     }
 
 
@@ -104,6 +111,11 @@ class FrontendOrderController extends Controller
             }
         return redirect()->back()->with('message','Cart not found.');
 
+    }
+
+
+    public function checkout(){
+        return view("Frontend.pages.checkout");
     }
 
 }

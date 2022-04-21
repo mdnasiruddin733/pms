@@ -20,7 +20,7 @@ class UserController extends Controller
 
         if (auth()->attempt($credentials,$request->remember))
         {
-            return redirect('admin/dashboard');
+            return redirect(route('home'));
         }
         return redirect()->back()->with('message','invalid credentials');
     }

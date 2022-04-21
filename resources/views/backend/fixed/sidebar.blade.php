@@ -2,21 +2,21 @@
       <div class="position-sticky pt-3">
         <ul class="nav flex-column">
            <li class="nav-item">
-            <a class="nav-link " aria-current="page" href="#">
+            <a class="nav-link {{Request::is('admin/dashboard*')? 'active' :''}}" aria-current="page" href="{{route('admin.dashboard')}}">
               <span data-feather="home"></span>
               Dashboard
             </a>
           </li> 
 
           <li class="nav-item">
-            <a class="nav-link {{Request::is('admin/category')? 'active' :''}}" href="{{route('admin.category.show')}}">
+            <a class="nav-link {{Request::is('admin/category*')? 'active' :''}}" href="{{route('admin.category.show')}}">
               <span data-feather="shopping-cart"></span>
               Category
             </a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link {{Request::is('admin/generic')? 'active' :''}}" href="{{route('admin.generic.show')}}">
+            <a class="nav-link {{Request::is('admin/generic*')? 'active' :''}}" href="{{route('admin.generic.show')}}">
               <span data-feather="shopping-cart"></span>
               Generic
             </a>
@@ -25,27 +25,27 @@
           
           
           <li class="nav-item">
-            <a class="nav-link {{Request::is('admin/product')? 'active' :''}}" href="{{route('admin.product.show')}}">
+            <a class="nav-link {{Request::is('admin/product*')? 'active' :''}}" href="{{route('admin.product.show')}}">
               <span data-feather="shopping-cart"></span>
               Products
             </a>
           </li>
 
            <li class="nav-item">
-            <a class="nav-link {{Request::is('admin/customer')? 'active' :''}}" href="{{route('admin.customer.show')}}">
+            <a class="nav-link {{Request::is('admin/customer*')? 'active' :''}}" href="{{route('admin.customer.show')}}">
               <span data-feather="users"></span>
               Customers
             </a>
           </li> 
            <li class="nav-item">
-            <a class="nav-link {{Request::is('admin/order')? 'active' :''}}" href="{{route('admin.order.show')}}">
+            <a class="nav-link {{Request::is('admin/order*')? 'active' :''}}" href="{{route('admin.order.show')}}">
               <span data-feather="bar-chart-2"></span>
               Order
             </a>
           </li> 
 
           <li class="nav-item">
-            <a class="nav-link {{Request::is('admin/payment')? 'active' :''}}" href="#">
+            <a class="nav-link {{Request::is('admin/payment*')? 'active' :''}}" href="#">
               <span data-feather="payment"></span>
             Payment
             </a>
