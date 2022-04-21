@@ -17,10 +17,14 @@
 						
 					</ul>
 					<ul class="header-links pull-right">
-					<li><a href="{{route('home')}}"><i class="fa fa-user-o"></i> My Account</a></li>
+					
 					@if(auth()->user())
+						<li><a href="{{route('myaccount')}}"><i class="fa fa-user-o"></i> My Account</a></li>
+						<li><a href="{{route('myorders')}}"><i class="fa fa-user-o"></i> My Orders</a></li>
 						<li><a href="" onclick="javascript:event.preventDefault();document.getElementById('logout-form').submit()"><i class="fa fa-user-o"></i>Logout</a></li>
 						<form id="logout-form" action="{{route('logout')}}" method="post">@csrf</form>
+					@else 
+						<li><a href="{{route('login.form')}}"><i class="fa fa-lock"></i> Login</a></li>
 					@endif
 					</ul>
 				</div>

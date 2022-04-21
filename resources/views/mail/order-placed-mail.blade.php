@@ -4,7 +4,7 @@
 <p>Your order is place successfully.</p>
 <p>Transaction ID:{{$data['tran_id']}}</p>
 
-@component('mail::button', ['url' => ''])
+@component('mail::button', ['url' => $data["url"]])
 Track Your Order
 @endcomponent
 

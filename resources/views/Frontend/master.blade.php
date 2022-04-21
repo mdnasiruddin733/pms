@@ -32,12 +32,9 @@
 
     </head>
 	<body>
-		@include('Frontend.Fixed.header')
-			<section class="m-3 container">
+		    @include('Frontend.Fixed.header')
+			<section class="container my-5">
 				@yield("content")
-			</section>
-			<section class="m-3 container">
-				@yield("products")
 			</section>
 		@include('Frontend.Fixed.footer')
 		<script src="{{url('/frontend/assets/js/jquery.min.js')}}"></script>

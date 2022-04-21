@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Mail;
 class OrderController extends Controller
 {
      
+
     public function order(){ 
         $orders =Order::all();
         return view('backend.pages.Order.Order',compact('orders'));

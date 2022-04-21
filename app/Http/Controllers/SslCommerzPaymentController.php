@@ -26,26 +26,26 @@ class SslCommerzPaymentController extends Controller
         $post_data['tran_id'] = uniqid(); // tran_id must be unique
 
         # CUSTOMER INFORMATION
-        $post_data['cus_name'] = $request->first_name.' '.$request->last_name;
+        $post_data['cus_name'] = $request->name;
         $post_data['cus_email'] = $request->email;
         $post_data['cus_add1'] = $request->address;
         $post_data['cus_add2'] = "";
-        $post_data['cus_city'] = "";
-        $post_data['cus_state'] = "";
-        $post_data['cus_postcode'] = "";
-        $post_data['cus_country'] = "Bangladesh";
-        $post_data['cus_phone'] = '01616626263';
+        $post_data['cus_city'] = auth()->user()->profile->city;
+        $post_data['cus_state'] = auth()->user()->profile->city;
+        $post_data['cus_postcode'] =auth()->user()->profile->postcode;
+        $post_data['cus_country'] = auth()->user()->profile->country;
+        $post_data['cus_phone'] = auth()->user()->profile->phone;
         $post_data['cus_fax'] = "";
 
         # SHIPMENT INFORMATION
-        $post_data['ship_name'] = "Store Test";
-        $post_data['ship_add1'] = "Dhaka";
-        $post_data['ship_add2'] = "Dhaka";
-        $post_data['ship_city'] = "Dhaka";
-        $post_data['ship_state'] = "Dhaka";
-        $post_data['ship_postcode'] = "1000";
-        $post_data['ship_phone'] = "";
-        $post_data['ship_country'] = "Bangladesh";
+        $post_data['ship_name'] = $request->name;
+        $post_data['ship_add1'] = $request->address;
+        $post_data['ship_add2'] = $request->address;
+        $post_data['ship_city'] = auth()->user()->profile->city;
+        $post_data['ship_state'] = auth()->user()->profile->city;
+        $post_data['ship_postcode'] =auth()->user()->profile->postcode;
+        $post_data['ship_phone'] = auth()->user()->profile->phone;
+        $post_data['ship_country'] = auth()->user()->profile->country;
 
         $post_data['shipping_method'] = "NO";
         $post_data['product_name'] = "Life Style";
@@ -65,8 +65,7 @@ class SslCommerzPaymentController extends Controller
             'user_id' =>auth()->user()->id,
             'status' =>'pending',
             'tran_id' => $post_data['tran_id'],
-            'receiver_first_name' =>$request->first_name,
-            'receiver_last_name' =>$request->last_name,
+            'receiver_name' =>$request->name,
             'receiver_email' =>$request->email,
             'receiver_address' =>$request->address,
             "payment_method"=>"Online",
@@ -131,7 +130,8 @@ class SslCommerzPaymentController extends Controller
             $mail_data=[
                 "name"=>auth()->user()->name,
                 "email"=>auth()->user()->email,
-                "tran_id"=> $order_details->tran_id
+                "tran_id"=> $order_details->tran_id,
+                "url"=>route("my-order.details",$order_details->id)
             ];
 
             

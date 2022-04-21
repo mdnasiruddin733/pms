@@ -117,6 +117,7 @@ class ProductController extends Controller
            unlink($product->image);
 
         } 
+        $product->delete();
         return redirect()->back();
         
     }

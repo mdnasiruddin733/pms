@@ -45,4 +45,8 @@ class User extends Authenticatable
     public function profile(){
         return $this->hasOne(CustomerProfile::class);
     }
+
+    public function orders(){
+        return  $this->hasMany(Order::class);
+    }
 }
