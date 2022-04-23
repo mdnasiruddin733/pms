@@ -4,6 +4,8 @@ namespace App\Observers;
 
 use App\Models\CustomerProfile;
 use App\Models\User;
+use Faker\Factory;
+
 
 class UserObserver
 {
@@ -15,7 +17,14 @@ class UserObserver
      */
     public function created(User $user)
     {   
-        $profile=new CustomerProfile();
+        $faker=Factory::create();
+        $profile=new CustomerProfile([
+            "country"=>$faker->country(),
+            "city"=>$faker->city(),
+            "postcode"=>$faker->postcode(),
+            "address"=>$faker->address(),
+            "phone"=>$faker->phoneNumber()
+        ]);
         $user->profile()->save($profile);
     }
 
