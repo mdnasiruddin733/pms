@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Category;
+use App\Models\Generic;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
@@ -8,13 +9,16 @@ use App\Models\User;
 function categories(){
     return Category::latest()->get();
 }
+function generics(){
+    return Generic::latest()->get();
+}
 
 function total(){
     $carts=session()->get('cart');
      $total=0;
     if(!is_null($carts)){
         foreach($carts as $cart){
-        $total=$total+$cart['price']*$cart['quantity'];
+            $total=$total+$cart['price']*$cart['quantity'];
         }
     }
    

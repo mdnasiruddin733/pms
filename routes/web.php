@@ -15,6 +15,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\SslCommerzPaymentController;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,10 @@ use App\Http\Controllers\SslCommerzPaymentController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+    Route::get("/cmd",function(){
+        Artisan::call("migrate:fresh --seed");
+        dd(" Maigration Done");
+    });
 
     Route::get('/', [HomeController::class,"welcome"])->name('welcome');
 
@@ -39,6 +44,9 @@ use App\Http\Controllers\SslCommerzPaymentController;
     Route::get("/password/reset",[ForgotPasswordController::class,"resetForm"])->name("password.reset");
     Route::post("/password/reset",[ForgotPasswordController::class,"reset"])->name("password.reset");
     
+    Route::post("/search",[ProductController::class,"search"])->name("search");
+    Route::get("/category/{id}/search",[ProductController::class,"showCategoriwise"])->name("category.search");
+
     
     
     Route::group(["prefix"=>"customer","middleware"=>["auth","customer"]],function(){
@@ -53,7 +61,7 @@ use App\Http\Controllers\SslCommerzPaymentController;
             Route::post("/cart/upadte",[FrontendOrderController::class,"updateCart"])->name("cart.update");
             Route::get("/cart/delete/{cart_id}",[FrontendOrderController::class,"deleteCart"])->name("cart.delete");
         });
-        Route::post("/search",[ProductController::class,"search"])->name("search");
+       
         Route::get("/my-orders",[HomeController::class,"myorders"])->name("myorders");
         Route::get("/my-order/details/{id}",[HomeController::class,"orderDetails"])->name("my-order.details");
     });
@@ -98,9 +106,7 @@ use App\Http\Controllers\SslCommerzPaymentController;
         Route::post('/customer/post',[CustomerController::class,'customerPost'])->name('customer.post');
         Route::get("/customer/delete/{id}",[CustomerController::class,"delete"])->name("customer.delete");
 
-        Route::get('/stock',[StockController::class,'stock'])->name('admin.stock.show');
-        Route::get('/stock/form',[StockController::class,'stockForm'])->name('stock.form');
-        Route::post('/stock/post',[StockController::class,'stockPost'])->name('stock.post');
+        
 
         Route::get('/order',[OrderController::class,'order'])->name('admin.order.show');
         Route::get('/order/form',[OrderController::class,'stockForm'])->name('order.form');

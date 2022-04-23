@@ -132,12 +132,16 @@ class ProductController extends Controller
             "search"=>"required",
             "category_id"=>"required"
         ]);
-        $items=Product::where("category_id",$req->category_id)
-                        ->orWhere("name","like","%".$req->search."%")
-                        ->orWhere("details","like","%".$req->search."%")
-                        ->get();
-      return view('Frontend.pages.home',compact('items'));
+        $search="%{$req->search}%";
+        $items=Product::query()->where("name","LIKE",$search)->orWhere("details","LIKE",$search)->get();
+       return view('Frontend.pages.home',compact('items'));
                          
+    }
+
+    public function showCategoriwise($id){
+        $category=Category::findOrFail($id);
+        $items=$category->products;
+        return view("Frontend.pages.home",compact('items'));
     }
 }
 

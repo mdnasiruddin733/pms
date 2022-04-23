@@ -35,7 +35,7 @@
                         </div>
                         <div class="row mb-2">
                             <div class="col-4"><strong>Weight:</strong></div>
-                            <div class="col-4">{{$product->weight}}gram</div>
+                            <div class="col-4">{{$product->weight}}mg</div>
                         </div>
                         <div class="row mb-4">
                             <div class="col-4"><strong>Quantity:</strong></div>

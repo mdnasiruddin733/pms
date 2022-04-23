@@ -21,7 +21,7 @@
       <th scope="col">Generic name</th>
       <th scope="col">Quantity</th>
       <th scope="col">Price</th>
-      <th scope="col">Weight</th>
+      <th scope="col">Weight(mg)</th>
       <th scope="col">Action</th>
     </tr>
   </thead>

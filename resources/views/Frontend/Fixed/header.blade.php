@@ -56,8 +56,8 @@
 								<form action="{{route('search')}}" method="post">
 									@csrf
 									<select class="input-select" name="category_id">
-										@foreach(categories() as $category)
-											<option value="{{$category->id}}">{{$category->name}}</option>
+										@foreach(generics() as $generic)
+											<option value="{{$generic->id}}">{{$generic->name}}</option>
 										@endforeach
 									</select>
 									<input class="input" placeholder="Search here" name="search">

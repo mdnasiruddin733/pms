@@ -23,7 +23,7 @@
       <th scope="row">{{$generic->details}}</th>
       <th scope="row">
 
-      <a class="btn btn-primary" href="{{route('generic.edit',$generic->id)}}">Edit</a>
+      <a class="btn btn-primary mb-2" href="{{route('generic.edit',$generic->id)}}">Edit</a>
       <a class="btn btn-danger" href="{{route('generic.delete',$generic->id)}}">Delete</a>
          
       </th>
