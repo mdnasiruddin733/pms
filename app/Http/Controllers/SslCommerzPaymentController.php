@@ -130,7 +130,7 @@ class SslCommerzPaymentController extends Controller
             $mail_data=[
                 "name"=>auth()->user()->name,
                 "email"=>auth()->user()->email,
-                "tran_id"=> $order_details->tran_id,
+                "tran_id"=> $order_details->tran_id,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
                 "url"=>route("my-order.details",$order_details->id)
             ];
 
@@ -151,7 +151,7 @@ class SslCommerzPaymentController extends Controller
             }
         }
 
-        return redirect(route('home'));
+        return redirect(route('welcome'));
     }
 
 
@@ -167,7 +167,7 @@ class SslCommerzPaymentController extends Controller
             ]);
         }
 
-        return redirect()->route('home');
+        return redirect()->route('welcome');
 
     }
 
@@ -182,7 +182,7 @@ class SslCommerzPaymentController extends Controller
             ]);
         }
 
-        return redirect()->route('home');
+        return redirect()->route('welcome');
 
 
     }

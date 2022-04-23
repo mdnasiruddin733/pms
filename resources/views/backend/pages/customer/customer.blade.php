@@ -22,7 +22,7 @@
       <th scope="row">{{$customer->email}}</th>
       <th scope="row">
           <a class="btn btn-danger" href="{{route("customer.delete",$customer->id)}}">Delete</a>
-          <a href="" class="btn btn-success">View</a>
+         
       </th>
 
     </tr>

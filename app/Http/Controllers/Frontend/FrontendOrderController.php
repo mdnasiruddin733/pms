@@ -78,9 +78,9 @@ class FrontendOrderController extends Controller
     {
         if(!is_null(session()->get('cart'))){
            session()->forget('cart');
-           return redirect()->back()->with('message','Cart Clear');
+           return redirect("/");
         }
-        return redirect()->back()->with('message','Cart Not found');
+        return redirect("/");
         
         
     }

@@ -6,7 +6,8 @@
   <input class="form-control form-control-dark w-90" type="text" placeholder="Search" aria-label="Search">
   <div class="navbar-nav">
     <div class="nav-item text-nowrap">
-      <a class="nav-link px-3" href="{{route('admin.logout')}}">Sign out</a>
+      <a class="nav-link px-3" href="" onclick="event.preventDefault();document.querySelector('#logout-form').submit()">Sign out</a>
+      <form action="{{route('logout')}}" method="post" id="logout-form">@csrf</form>
     </div>
   </div>
 </header>

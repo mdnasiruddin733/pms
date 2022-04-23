@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class AdminMiddleware
+class CartMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,12 +16,10 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-
-        if(auth()->check() && auth()->user()->role=="admin"){
+        if(!is_null(session()->get('cart'))){
             return $next($request);
-        }else{
-             return redirect(route("login"));
         }
+        return back();
         
     }
 }

@@ -11,73 +11,25 @@ use App\Models\User;
 
 class HomeController extends Controller
 {
-    function __construct()
-    {
-        $this->middleware("auth")->except(["loginForm","loginFormpost"]);
-    }
-    public function home(){
 
-        if(auth()->check() && auth()->user()->role=="customer"){
-            $items = Product::all();
-            return view('Frontend.pages.home',compact('items'));
-        }elseif(auth()->check() && auth()->user()->role=="admin"){
-            return redirect("/admin/dashboard");
-        }else{
-            return redirect("/customer/login/form");
+        public function welcome(){
+            $items=Product::latest()->get();
+            return view("Frontend.pages.home",compact('items'));
         }
         
-    }
-
-  
-        public function registrationForm(){
-            
-             return view('Frontend.pages.registration'); 
-
-        }
-        public function registrationFormpost(Request $request){
-            // dd($request->all());
-            $request->validate([
-                'name'=>'required',
-                'email'=>'required',
-                'password'=>'required',
-            ]);
-            // dd($request->all());
-
-            return redirect()->route('home');
-
-        }
-
-        public function loginForm(){
-            if(auth()->check()){
-                return redirect(route('home'));
-            }
-            return view('Frontend.pages.login');
-        }
-        public function loginFormpost(request $request){
-            //  dd($request->all());
-            $request->validate([
-                'email'=>'required|email',
-                'password'=>'required',
-            ]);
-            // dd($request->all());
-            $credentials=$request->except('_token');
-    
-            if (auth()->attempt($credentials))
-            {
-                return redirect()->route('home');
-            }
-            return redirect()->back()->with('message','invalid credentials');
-        }
-
-        public function logout(Request $req){
-            auth()->logout();
-            return redirect(route("login.form"));
-        }
-
         public function myaccount(){
             return view("Frontend.pages.myaccount");
         }
 
+        public function customerDashboard(){
+            $items=Product::latest()->get();
+            return view("Frontend.pages.home",compact('items'));
+        }
+
+        public function adminDashboard(){
+
+            return view("Backend.pages.dashboard");
+        }
         public function updateAccount(Request $req){
             $this->validate($req,[
                 "name"=>"required",
@@ -88,7 +40,7 @@ class HomeController extends Controller
                 "postcode"=>"nullable|string|max:20",
                 "address"=>"nullable|string|max:100"
             ]);
-            $user=User::with("profile")->findOrFail(Auth::id());
+            $user=User::with("profile")->findOrFail(auth()->user()->id);
             $user->name=$req->name;
             $user->email=$req->email;
             $user->save();

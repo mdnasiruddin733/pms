@@ -24,9 +24,5 @@ class UserController extends Controller
         }
         return redirect()->back()->with('message','invalid credentials');
     }
-    public function logout()
-    {
-        auth()->logout();
-        return redirect()->route('admin.login')->with('message','Logout Successful');
-    }
+   
 }

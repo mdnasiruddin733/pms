@@ -108,7 +108,7 @@
                 </tbody>
                 <tfoot>
                 <tr>
-                <td><a href="{{route('home')}}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+                <td><a href="{{route('welcome')}}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
                 
                     <td colspan="2" class="hidden-lg"></td>
                     <td class="hidden-xs text-center"><strong>Total {{total()}} TK.</strong></td>

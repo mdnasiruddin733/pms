@@ -8,6 +8,7 @@
 <title>Sign Up Form by Colorlib</title>
 
 <link rel="stylesheet" href="ttps://colorlib.com/etc/regform/colorlib-regform-8/fonts/material-icon/css/material-design-iconic-font.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 <link rel="stylesheet" href="https://colorlib.com/etc/regform/colorlib-regform-8/css/style.css">
 <meta name="robots" content="noindex, follow">
@@ -21,22 +22,20 @@
 
 <form action="{{route('customer.login')}}" method="POST">
     @csrf
-<h2 class="form-title">Create account</h2>
+<h2 class="form-title">Login</h2>
 
 <div class="form-group">
-<input type="email" class="form-input" name="email" id="email" placeholder="Your Email" />
+  <input type="email" class="form-input" name="email" id="email" placeholder="Your Email" />
 </div>
 <div class="form-group">
-<input type="text" class="form-input" name="password" id="password" placeholder="Password" />
-<span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
-</div>
-
-<div class="form-group">
-<input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
-<label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in <a href="#" class="term-service">Terms of service</a></label>
+  <input type="password" class="form-input" name="password" id="password" placeholder="Password" />
+  <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
 </div>
 <div class="form-group">
-<button type="submit">login</button>
+  <button type="submit" class="btn btn-primary btn-block">Login</button>
+</div>
+<div class="form-group text-center">
+  Not registered?<a href="{{route("registration.form")}}">Register here</a>
 </div>
 </form>
 

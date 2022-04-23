@@ -1,7 +1,11 @@
 
 
 
-
+<style>
+	.active{
+		color:#f10e0e !important;
+	}
+</style>
 <header>
 			<!-- TOP HEADER -->
 			<div id="top-header">
@@ -12,20 +16,18 @@
 						
 					</ul>
 					<ul class="header-links pull-right">
-						
-						<li><a href="{{route('cart.view')}}"><i class="fa fa-user-o"></i> My Cart ({{session()->has('cart')?count(session()->get('cart')):0}})</a></li>
-						
-					</ul>
-					<ul class="header-links pull-right">
-					
-					@if(auth()->user())
-						<li><a href="{{route('myaccount')}}"><i class="fa fa-user-o"></i> My Account</a></li>
-						<li><a href="{{route('myorders')}}"><i class="fa fa-user-o"></i> My Orders</a></li>
-						<li><a href="" onclick="javascript:event.preventDefault();document.getElementById('logout-form').submit()"><i class="fa fa-user-o"></i>Logout</a></li>
+					@if(auth()->check())
+					    <li><a class="{{Request::is('/')? 'active' :''}}" href="{{route('welcome')}}"><i class="fa fa-cart-plus"></i>Shop</a></li>
+						<li><a class="{{Request::is('customer/myaccount*')? 'active' :''}}" href="{{route('myaccount')}}"><i class="fa fa-user-o"></i> My Account</a></li>
+						<li><a class="{{Request::is('customer/my-orders*')? 'active' :''}}" href="{{route('myorders')}}"><i class="fa fa-shopping-basket"></i> My Orders</a></li>
+						<li><a class="{{Request::is('customer/cart*')? 'active' :''}}" href="{{route('cart.view')}}"><i class="fa fa-shopping-cart"></i> My Cart ({{session()->has('cart')?count(session()->get('cart')):0}})</a></li>
+						<li><a href="" onclick="javascript:event.preventDefault();document.getElementById('logout-form').submit()"><i class="fa fa-lock"></i>Logout</a></li>
 						<form id="logout-form" action="{{route('logout')}}" method="post">@csrf</form>
 					@else 
-						<li><a href="{{route('login.form')}}"><i class="fa fa-lock"></i> Login</a></li>
+						<li><a href="{{route('login')}}"><i class="fa fa-key"></i> Login</a></li>
+						<li><a href="{{route('register')}}"><i class="fa fa-user"></i>Register</a></li>
 					@endif
+						
 					</ul>
 				</div>
 			</div>
